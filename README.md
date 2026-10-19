@@ -1,134 +1,116 @@
-# 🌾 Bhu-Drishti: Professional Land-Use & Land Records Intelligence Platform
+# 🌾 Bhu-Drishti: Land-Use & Land Records Intelligence Platform
 
-> **A full-stack, responsive web application for Land-Use & Land Records Data Analysis, Research, and Policy Decision Support in India.**
+> A full-stack platform for exploring land-use data, research, geospatial insights, and policy decision support in India.
 
-Bhu-Drishti unites multi-decadal land statistics, government datasets (MoA&FW, NRSC Bhuvan, FSI, DILRMP), peer-reviewed research papers, geospatial choropleth visualizations, statistical anomaly detection, and natural-language querying into one unified, decision-grade dashboard.
+Bhu-Drishti brings land statistics, public datasets, research publications, geospatial visualizations, anomaly detection, and natural-language exploration together in one dashboard.
 
----
+## Key Features
 
-## 🚀 Key Features
+- **Interactive map explorer** — explore state-level land-use information and historical trends.
+- **Evidence-oriented AI assistant** — ask questions in English, Hindi, or Hinglish and inspect the reasoning behind responses.
+- **Anomaly detection** — highlight unusual changes in land-use indicators for further investigation.
+- **Historical trends** — compare periods, examine land conversion, and review growth indicators.
+- **Policy analysis** — organize evidence for evaluating land-related policies.
+- **Dataset explorer** — browse dataset metadata and preview available records.
+- **Research library** — discover studies and generate concise summaries and citations.
+- **Report export** — prepare reports for review and sharing.
+- **Data-ingestion tools** — support CSV/JSON ingestion with validation and audit information.
 
-- 🗺️ **Interactive India Geospatial Map Explorer**: SVG/Vector choropleth map across 16+ States and key districts with multi-year time-lapse animation playback (**2005 → 2025**).
-- 🤖 **Evidence-Backed Land AI Assistant**: Multi-lingual intent parser supporting **English, Hindi, and Hinglish** (e.g., *"UP mein agricultural land-use ka trend kya hai?"*) with structured cards and mathematical explainability modals (**"Why am I seeing this?"**).
-- ⚠️ **Statistical Anomaly Detection**: Automated Z-Score deviation engine ($|Z| > 2.0$) flagging unprecedented land shifts (e.g. *Jewar / Gautam Buddha Nagar urban expansion*, *Bengaluru Urban peri-urban agriculture loss*, *Gorakhpur wetland changes*).
-- 📊 **Historical Trend & Land Conversion Dynamics**: Multi-period categorical balance sheets, compound annual growth rate (CAGR), and transition flow diagrams.
-- 🏛️ **Policy Impact Evaluation & Decision Support**: Before/After policy longitudinal evaluation for **PMKSY (2015)**, **DILRMP (2008)**, and **Green India Mission (2014)** with traffic-light executive status indicators.
-- 📁 **Dataset Explorer & Ingestion Hub**: Catalog of open government datasets with data quality scorecards, live table previews, and connected adapter pipelines.
-- 📚 **Research Library**: Indexed empirical studies with APA citation generator and AI concise summaries.
-- 📑 **Report Generator & PDF Export**: Executive dossier creation with vector PDF export (`jsPDF`) and print stylesheets.
-- 🛡️ **Admin Data Pipeline**: CSV/JSON ingestion pipeline with column mapper, boundary validation rules (0–100% bounds, year ranges), and audit logging.
+> **Data note:** Treat model-generated summaries and anomaly flags as decision-support signals, not authoritative conclusions. Verify findings against the linked source datasets and official publications before using them in research or policy decisions. Document dataset provenance, update dates, and limitations wherever applicable.
 
----
+## Technology Stack
 
-## 🛠️ Tech Stack
+- **Frontend:** React, TypeScript, Vite, Tailwind CSS, Recharts, Lucide React
+- **Backend:** Node.js, Express, TypeScript
+- **Data:** PostgreSQL, PostGIS, Prisma ORM (with an in-memory fallback where configured)
+- **Deployment:** Docker Compose; frontend/backend can be deployed separately
+- **AI:** Google Gemini API
 
-- **Frontend**: React 18, TypeScript, Vite, Tailwind CSS, Recharts, Lucide React, Leaflet, jsPDF, html2canvas
-- **Backend**: Node.js, Express, TypeScript (`tsx`), CORS, Dotenv, Multer
-- **Database Layer**: PostgreSQL (with PostGIS support), Prisma ORM, and resilient zero-latency in-memory cache
-- **Containerization**: Docker & Docker Compose (multi-stage production builds)
-- **AI Intelligence**: Google Gemini 1.5 Flash API with domain-specific grounding
+## Prerequisites
 
----
+- Node.js 18 or newer
+- npm
+- Docker Desktop / Docker Engine (optional, for container-based setup)
+- Valid API credentials if enabling the AI-powered features
 
-## 🐳 Running with Docker (Recommended - 1 Command)
+## Getting Started
 
-You can spin up the full application along with a dedicated PostgreSQL (PostGIS) database using Docker Compose:
+### Option 1: Local development
+
+Clone this repository:
 
 ```bash
-# 1. Clone the repository
-git clone https://github.com/shashvatshukla-coder/sih-project.git
+git clone https://github.com/Ishant-Mishra/sih-project.git
 cd sih-project
-
-# 2. Build and launch all services in background
-docker-compose up -d --build
-
-# 3. View live logs
-docker-compose logs -f
-```
-
-- **Frontend & Backend API**: `http://localhost:3001`
-- **PostgreSQL Database**: `localhost:5432` (User: `postgres`, Password: `postgres`, DB: `bhudrishti`)
-
-To stop the containers:
-```bash
-docker-compose down
-```
-
----
-
-## 🗄️ PostgreSQL Database Setup & Cloud Hosting
-
-Bhu-Drishti features a **hybrid database architecture**:
-- If `DATABASE_URL` is provided, it automatically connects to PostgreSQL via **Prisma ORM**.
-- If `DATABASE_URL` is omitted, it gracefully falls back to the embedded in-memory database so the app is always functional.
-
-### 1. Generating Prisma Client
-```bash
-npm run db:generate
-```
-
-### 2. Pushing Schema to PostgreSQL
-```bash
-npm run db:push
-```
-
-### 3. Automated Seeding (2005–2025 MoA&FW Datasets)
-Populates all 52+ multi-decadal records, 26 districts, 16 states, policies, and anomaly logs:
-```bash
-npm run db:seed
-```
-
-### 4. Connecting Free Cloud PostgreSQL (Neon / Supabase / Render)
-Set the `DATABASE_URL` environment variable in your `.env` or cloud dashboard:
-```env
-DATABASE_URL="postgresql://user:password@ep-cool-db.us-east-2.aws.neon.tech/bhudrishti?sslmode=require"
-```
-
----
-
-## 💻 Getting Started (Local Development)
-
-### 1. Prerequisites
-- **Node.js** (v18 or higher recommended)
-- **npm** or **yarn**
-
-### 2. Installation
-```bash
-# Clone the repository
-git clone https://github.com/shashvatshukla-coder/sih-project.git
-cd sih-project
-
-# Install dependencies
 npm install
 ```
 
-### 3. Running Development Servers
-```bash
-# Start both Backend and Frontend concurrently:
-npm run dev
+Configure the environment variables required by your setup. **Do not commit API keys, database passwords, or other secrets.** If the project provides an environment template, copy it to a local `.env` file and fill in the values.
 
-# Or run individually:
-npm run dev:server   # Starts Express API on http://localhost:5000
-npm run dev:client   # Starts Vite Dev Server on http://localhost:5173
+Start development:
+
+```bash
+npm run dev
 ```
 
-### 4. Building for Production
+If your package scripts support running services separately, use:
+
+```bash
+npm run dev:server
+npm run dev:client
+```
+
+Build for production:
+
 ```bash
 npm run build
 ```
 
-### 5. Deploying on Vercel & Render
+### Option 2: Docker Compose
 
-The repository is configured for dual deployment:
-- **Frontend on Vercel**: Connect repo, set root directory to `./`, build command `npm run build`, output directory `dist`.
-- **Backend on Render**: Uses `render.yaml` Blueprint or Web Service (`npm start`, health check `/health`).
-- **Set Environment Variable on Vercel**:
-  ```bash
-  VITE_API_BASE_URL=https://YOUR-RENDER-SERVICE.onrender.com/api
-  ```
+```bash
+git clone https://github.com/Ishant-Mishra/sih-project.git
+cd sih-project
+docker compose up --build
+```
+
+Review the Compose file and local environment configuration for the actual service ports and credentials. Change default development credentials before using any deployment outside your local machine.
+
+## Database Setup
+
+When PostgreSQL is configured, set `DATABASE_URL` in your local environment, then run the project’s supported database scripts:
+
+```bash
+npm run db:generate
+npm run db:push
+npm run db:seed
+```
+
+Run only the scripts that are present in `package.json` and review schema/seed behavior before using a non-development database.
+
+## Deployment Notes
+
+The frontend and backend may be deployed separately, depending on the project configuration. Configure the API base URL and server-side secrets in the relevant hosting dashboards. Never expose a server API key through a `VITE_*` variable, since Vite variables are bundled for client-side use.
+
+## Data Quality & Responsible Use
+
+- Record the source, publication date, geographic coverage, and time period of each dataset.
+- Distinguish verified source values from estimates, synthetic/demo data, and AI-generated explanations.
+- Display methodology and uncertainty for statistical alerts.
+- Validate findings against original government or research sources before citing them in reports.
+- Do not use the platform’s outputs as a substitute for legal, land-title, or official administrative verification.
+
+## Contributing
+
+1. Create a feature branch.
+2. Keep changes focused and explain the reason for each change.
+3. Test the affected functionality.
+4. Open a pull request with a summary, screenshots where relevant, and testing notes.
+
+## License
+
+No license is specified here yet. Until a license is added, do not assume that the repository grants permission to reuse or redistribute its code.
 
 ---
 
-## 📜 Official Standards Compliance
-- **Classification Schema**: Directorate of Economics & Statistics, Ministry of Agriculture & Farmers Welfare 9-Fold Classification.
-- **Data Integrity**: All figures derived from verified government survey benchmarks and remote sensing repositories (FSI ISFR, NRSC Bhuvan, DILRMP).
+**Repository:** [Ishant-Mishra/sih-project](https://github.com/Ishant-Mishra/sih-project)
